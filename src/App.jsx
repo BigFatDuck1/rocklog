@@ -1,25 +1,39 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+import { IconChartBarPopular } from '@tabler/icons-react'
+
 import './App.css'
+//Mantine
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import { MantineProvider, Button } from '@mantine/core';
+//Components
+import DatePicker from './components/DatePicker.jsx'
+
 
 function App() {
+
+  const [date, setDate] = useState(new Date());
+  console.log(date); //! Delete later, debug only
   
   return (
-    <div>
+    <MantineProvider defaultColorScheme="dark" >
 
-      {/* Clicking title displays global stats */}
-      <h1>RockLog</h1> 
+      <div className="header global_header" >
+        {/* Clicking title displays global stats */}
+        <h1>RockLog</h1>
+        <IconChartBarPopular size={"2rem"} stroke={1.5} />
+      </div>
 
       <div className="date_box">
-
+        <DatePicker date={date} setDate={setDate} />
       </div>
 
       <div className="logger_box">
-        
+        <Button  >Log</Button>
       </div>
 
-    </div>
+    </MantineProvider>
   )
 
 }

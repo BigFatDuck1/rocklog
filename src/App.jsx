@@ -9,12 +9,18 @@ import '@mantine/dates/styles.css';
 import { MantineProvider, Button } from '@mantine/core';
 //Components
 import DatePicker from './components/DatePicker.jsx'
+import NumberOf from './components/NumberOf.jsx'
 
 
 function App() {
 
   const [date, setDate] = useState(new Date());
-  console.log(date); //! Delete later, debug only
+
+  
+  const [ climbs, logClimbs ]  = useState({
+    V4: 10,
+  });
+  console.log(climbs); //! Delete later, debug only
   
   return (
     <MantineProvider defaultColorScheme="dark" >
@@ -27,6 +33,12 @@ function App() {
 
       <div className="date_box">
         <DatePicker date={date} setDate={setDate} />
+      </div>
+
+      <div className="items">
+        <NumberOf label="V4" value={climbs.V4} setValue={() => {
+          logClimbs({ ...climbs, V4: climbs.V4 + 1 })
+        }} />
       </div>
 
       <div className="logger_box">

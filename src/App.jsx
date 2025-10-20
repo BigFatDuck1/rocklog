@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-import { IconChartBarPopular } from '@tabler/icons-react'
+import { IconChartBarPopular, IconDeviceFloppy } from '@tabler/icons-react'
 
 import './App.css'
 //Mantine
@@ -17,10 +17,12 @@ function App() {
   const [date, setDate] = useState(new Date());
 
   
-  const [ climbs, logClimbs ]  = useState({
-    V4: 10,
-  });
-  console.log(climbs); //! Delete later, debug only
+  const [ climbs, logClimbs ]  = useState(0);
+
+  useEffect(() => {
+    window.localStorage.setItem('V4', JSON.stringify(climbs));
+    console.log(window.localStorage.getItem("V4"));
+  }, [ climbs ]);
   
   return (
     <MantineProvider defaultColorScheme="dark" >
@@ -36,13 +38,13 @@ function App() {
       </div>
 
       <div className="items">
-        <NumberOf label="V4" value={climbs.V4} setValue={() => {
-          logClimbs({ ...climbs, V4: climbs.V4 + 1 })
-        }} />
+        <NumberOf label="V4" value={climbs} setValue={logClimbs} />
       </div>
 
       <div className="logger_box">
-        <Button  >Log</Button>
+        <Button leftSection={<IconDeviceFloppy />} onClick={() => {
+          console.log(window.localStorage.getItem('V4'))
+          }} >Log</Button>
       </div>
 
     </MantineProvider>
